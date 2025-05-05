@@ -8,6 +8,7 @@ const Routes = {
   AUTH: 'AUTH',
   CONTACTS: 'CONTACTS',
   PROFILE: 'PROFILE',
+  PHONENUMBER: 'Phone Number',
 };
 
 export default Routes;
