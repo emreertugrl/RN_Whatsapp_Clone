@@ -4,6 +4,7 @@ const enum Colors {
   GRAY_3 = '#F6F6F5',
   BLUE_1 = '#007AFF',
   WHITE = '#FFFFFF',
+  BLACK = '#000000',
 }
 
 export default Colors;

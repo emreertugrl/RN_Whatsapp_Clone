@@ -6,6 +6,7 @@ const Routes = {
   CHATS: 'CHATS',
   SETTINGS: 'SETTINGS',
   AUTH: 'AUTH',
+  MESSAGES: 'MESSAGES',
   CONTACTS: 'CONTACTS',
   PROFILE: 'PROFILE',
   PHONENUMBER: 'Phone Number',
