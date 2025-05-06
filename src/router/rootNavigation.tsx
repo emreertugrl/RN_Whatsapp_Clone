@@ -5,6 +5,8 @@ import Routes from '../utils/routes';
 import PhoneNumber from '../screens/profile/phoneNumber';
 import {Pressable, Text} from 'react-native';
 import Colors from '../utils/colors';
+import CountryCode from '../screens/auth/countryCode';
+import UserRegistirationInfo from '../screens/auth/userRegistirationInfo';
 
 const Stack = createNativeStackNavigator();
 const RootNavigator = () => {
@@ -22,6 +24,11 @@ const RootNavigator = () => {
         })}
         name={Routes.PHONENUMBER}
         component={PhoneNumber}
+      />
+      <Stack.Screen name={Routes.COUNTRYCODE} component={CountryCode} />
+      <Stack.Screen
+        name={Routes.USERREGISTIRETIONINFO}
+        component={UserRegistirationInfo}
       />
       <Stack.Screen
         options={{

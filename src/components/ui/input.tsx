@@ -1,33 +1,20 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Colors from '../../utils/colors';
-import {ArrowRight2} from 'iconsax-react-nativejs';
 import {useNavigation} from '@react-navigation/native';
-import Routes from '../../utils/routes';
 import {useAppSelector} from '../../store/hooks';
-const PhoneInput: React.FC<any> = ({onChange, value}) => {
+
+const CustomInput: React.FC<any> = ({onChange, value, placeholder}) => {
   const navigation = useNavigation();
   const {selectedCountry} = useAppSelector(state => state.auth);
   return (
     <View style={styles.container}>
-      <Pressable
-        style={styles.selectedCountry}
-        onPress={() => navigation.navigate(Routes.COUNTRYCODE)}>
-        <Text style={styles.country}>{selectedCountry?.country}</Text>
-        <ArrowRight2 size="28" color={Colors.GRAY_2} />
-      </Pressable>
-      <View style={styles.inputContainer}>
-        <View style={styles.codeContainer}>
-          <Text style={styles.countryCode}>{selectedCountry?.code}</Text>
-        </View>
-        <TextInput
-          value={value}
-          keyboardType="number-pad"
-          style={styles.input}
-          placeholder="Phone Number"
-          onChangeText={value => onChange(value)}
-        />
-      </View>
+      <TextInput
+        value={value}
+        style={styles.input}
+        placeholder={placeholder}
+        onChangeText={value => onChange(value)}
+      />
     </View>
   );
 };
@@ -70,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PhoneInput;
+export default CustomInput;

@@ -9,6 +9,8 @@ const Routes = {
   CONTACTS: 'CONTACTS',
   PROFILE: 'PROFILE',
   PHONENUMBER: 'Phone Number',
+  COUNTRYCODE: 'Select Code',
+  USERREGISTIRETIONINFO: 'USER INFO',
 };
 
 export default Routes;
