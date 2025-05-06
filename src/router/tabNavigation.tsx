@@ -4,10 +4,11 @@ import Routes from '../utils/routes';
 import {Calls, Camera, Chats, Settings, Status} from '../screens';
 import Colors from '../utils/colors';
 import TabIcon from '../components/router/tabIcon';
+import {Edit} from 'iconsax-react-nativejs';
 import {Pressable, Text} from 'react-native';
-import {Edit2} from 'iconsax-react-nativejs';
 
 const Tab = createBottomTabNavigator();
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -40,9 +41,11 @@ const TabNavigator = () => {
           headerRight: () => (
             <Pressable
               style={{marginRight: 20}}
-              onPress={() => navigation.navigate(Routes.TAB)}>
-              <Text style={{color: Colors.BLUE_1, fontSize: 18}}>
-                <Edit2 />
+              onPress={() => {
+                navigation.navigate(Routes.CONTACTS);
+              }}>
+              <Text style={{fontSize: 18}}>
+                <Edit color={Colors.BLUE_1} />
               </Text>
             </Pressable>
           ),
@@ -54,5 +57,4 @@ const TabNavigator = () => {
     </Tab.Navigator>
   );
 };
-
 export default TabNavigator;
