@@ -27,6 +27,7 @@ const PhoneNumber: React.FC = () => {
   async function handleSignInWithPhoneNumber() {
     const confirmation = await signInWithPhoneNumber(getAuth(), phone);
     if (confirmation.verificationId) {
+      dispatch(setPhoneNumber(phone));
       navigation.navigate(Routes.USERREGISTIRETIONINFO);
     } else {
       console.log('Selam');

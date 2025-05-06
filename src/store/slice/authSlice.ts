@@ -1,9 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Country, CountryiesTypes} from '../../modals/data/auth/auth';
+import {CountryiesTypes} from '../../modals/data/auth/auth';
 import {getCountriesCode} from '../actions/authActions';
 
 const initialState: CountryiesTypes = {
-  phoneNumber: '',
+  phoneNumber: '5555555555',
+  surname: 'ertugrul',
+  name: 'emre',
   countries: [],
   pendingCountryCode: false,
   selectedCountry: {
@@ -22,6 +24,12 @@ const authSlice = createSlice({
     setPhoneNumber: (state, action) => {
       state.phoneNumber = action.payload;
     },
+    setName: (state, action) => {
+      state.name = action.payload;
+    },
+    setSurname: (state, action) => {
+      state.surname = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -38,5 +46,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {setCountry, setPhoneNumber} = authSlice.actions;
+export const {setCountry, setPhoneNumber, setName, setSurname} =
+  authSlice.actions;
 export default authSlice.reducer;

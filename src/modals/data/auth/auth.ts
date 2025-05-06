@@ -4,9 +4,12 @@ interface Country {
   country: string;
 }
 interface CountryiesTypes {
-  countries: Country[];
+  name: string;
+  surname: string;
+  phoneNumber: string;
   selectedCountry: Country;
   pendingCountryCode: boolean;
-  phoneNumber: string;
+  countries: Country[];
+  navigation?: any;
 }
 export type {Country, CountryiesTypes};

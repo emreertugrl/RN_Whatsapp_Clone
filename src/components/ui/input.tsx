@@ -1,14 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Colors from '../../utils/colors';
-import {useNavigation} from '@react-navigation/native';
-import {useAppSelector} from '../../store/hooks';
+import {InputProps} from '../../modals/ui/input';
 
-const CustomInput: React.FC<any> = ({onChange, value, placeholder}) => {
-  const navigation = useNavigation();
-  const {selectedCountry} = useAppSelector(state => state.auth);
+const CustomInput: React.FC<InputProps> = ({onChange, value, placeholder}) => {
   return (
     <View style={styles.container}>
+      <Text style={styles.placeHolder}>{placeholder}</Text>
       <TextInput
         value={value}
         style={styles.input}
@@ -23,37 +21,16 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 0.5,
     borderColor: Colors.GRAY_2,
+    padding: 10,
   },
-  codeContainer: {
-    paddingHorizontal: 20,
-    borderColor: Colors.GRAY_1,
-    borderRightWidth: 1,
+  placeHolder: {
+    fontSize: 16,
+    color: Colors.BLACK,
   },
   input: {
     padding: 10,
-    fontSize: 18,
+    fontSize: 24,
     backgroundColor: Colors.WHITE,
-  },
-  selectedCountry: {
-    padding: 10,
-    marginTop: 10,
-    borderBottomWidth: 0.5,
-    borderColor: Colors.GRAY_2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  country: {
-    fontSize: 18,
-    color: Colors.BLUE_1,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  countryCode: {
-    fontSize: 30,
-    color: Colors.GRAY_1,
   },
 });
 
