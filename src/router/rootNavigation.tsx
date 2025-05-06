@@ -29,7 +29,13 @@ const RootNavigator = () => {
       />
       <Stack.Screen name={Routes.COUNTRYCODE} component={CountryCode} />
       <Stack.Screen name={Routes.CONTACTS} component={Contacts} />
-      <Stack.Screen name={Routes.MESSAGES} component={Messages} />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name={Routes.MESSAGES}
+        component={Messages}
+      />
       <Stack.Screen
         name={Routes.USERREGISTIRETIONINFO}
         component={UserRegistirationInfo}
