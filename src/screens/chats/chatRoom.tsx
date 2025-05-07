@@ -48,7 +48,31 @@ const ChatRoom: React.FC = ({route}) => {
       .then(res => setMessage(''))
       .catch(err => console.error('Mesaj gönderme hatası:', err));
   };
+  const [hasMarkedAsRead, setHasMarkedAsRead] = useState(false);
 
+  const markMessagesAsRead = async () => {
+    if (hasMarkedAsRead) return; // Zaten okundu olarak işaretlendi ise durdur
+
+    try {
+      const snapshot = await firestore()
+        .collection('Messages')
+        .where('from', '==', contactNumber)
+        .where('to', '==', phoneNumber)
+        .where('read', '==', false)
+        .get();
+
+      const batch = firestore().batch();
+
+      snapshot.forEach(doc => {
+        batch.update(doc.ref, {read: true});
+      });
+
+      await batch.commit();
+      setHasMarkedAsRead(true); // Okundu olarak işaretlendiğini kaydet
+    } catch (error) {
+      console.error('Okunmamış mesajlar güncellenemedi:', error);
+    }
+  };
   useEffect(() => {
     const subscribe = firestore()
       .collection('Messages')
@@ -68,7 +92,7 @@ const ChatRoom: React.FC = ({route}) => {
       });
 
     return () => subscribe();
-  }, []);
+  }, [phoneNumber, contactNumber]);
 
   return (
     <KeyboardAvoidingView
@@ -103,6 +127,8 @@ const ChatRoom: React.FC = ({route}) => {
                 </Text>
               </View>
             )}
+            onEndReached={() => markMessagesAsRead()}
+            onEndReachedThreshold={0.1}
             data={chats}
             renderItem={({item}) => <MessageBox item={item} />}
           />

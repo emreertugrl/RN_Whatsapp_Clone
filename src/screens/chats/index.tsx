@@ -8,11 +8,9 @@ import auth from '@react-native-firebase/auth';
 
 const Chats: React.FC = () => {
   const {phoneNumber} = useAppSelector(state => state.auth);
-
-  const [message, setMessage] = useState('');
   const [chats, setChats] = useState([]);
   const user = auth().currentUser?.uid;
-  console.log('user', user);
+
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('Messages')

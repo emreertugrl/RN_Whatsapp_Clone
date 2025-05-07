@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../utils/colors';
 import {useAppSelector} from '../../store/hooks';
 import moment from 'moment';
-
+import firestore from '@react-native-firebase/firestore';
 type Props = {
   item: {
     message: string;
@@ -12,6 +12,25 @@ type Props = {
 
 const MessageBox: React.FC<Props> = ({item}) => {
   const {phoneNumber} = useAppSelector(state => state.auth);
+  const markMessagesAsRead = async (
+    currentUserPhone: string,
+    contactPhone: string,
+  ) => {
+    const querySnapshot = await firestore()
+      .collection('Messages')
+      .where('from', '==', contactPhone)
+      .where('to', '==', currentUserPhone)
+      .where('read', '==', false)
+      .get();
+
+    const batch = firestore().batch();
+
+    querySnapshot.forEach(doc => {
+      batch.update(doc.ref, {read: true});
+    });
+
+    await batch.commit();
+  };
   return (
     <View
       style={[

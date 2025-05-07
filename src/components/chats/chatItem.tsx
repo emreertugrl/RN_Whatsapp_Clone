@@ -12,16 +12,35 @@ import moment from 'moment';
 const ChatItem: React.FC<ChatItemProps> = ({item}) => {
   const navigation = useNavigation();
   const [user, setUser] = useState('');
+  const [unreadCount, setUnreadCount] = useState(0);
   const {phoneNumber} = useAppSelector(state => state.auth);
   useEffect(() => {
-    firestore()
+    const contactId = item.from === phoneNumber ? item.to : item.from;
+
+    const unsubscribeUser = firestore()
       .collection('Users')
-      .doc(phoneNumber == item.from ? item.to : item.from)
-      .get()
-      .then(querySnapshot => {
-        setUser(querySnapshot.data());
+      .doc(contactId)
+      .onSnapshot(snapshot => {
+        if (snapshot?.exists) {
+          setUser(snapshot?.data());
+        }
       });
-  }, []);
+
+    const unsubscribeUnread = firestore()
+      .collection('Messages')
+      .where('from', '==', contactId)
+      .where('to', '==', phoneNumber)
+      .where('read', '==', false)
+      .onSnapshot(snapshot => {
+        setUnreadCount(snapshot.size); // Okunmamış mesaj sayısı
+      });
+
+    return () => {
+      unsubscribeUser();
+      unsubscribeUnread();
+    };
+  }, [item, phoneNumber]);
+
   return (
     <Pressable
       onPress={() => navigation.navigate(Routes.MESSAGES, {contact: user})}
@@ -43,7 +62,6 @@ const ChatItem: React.FC<ChatItemProps> = ({item}) => {
               {user.name} {user.surname}
             </Text>
             <Text style={styles.date}>
-              {' '}
               {moment
                 .unix(item.timeStamp._seconds)
                 .utcOffset(3)
@@ -51,10 +69,17 @@ const ChatItem: React.FC<ChatItemProps> = ({item}) => {
             </Text>
           </View>
           <View style={styles.rightDown}>
-            <Text style={styles.tick}>√√</Text>
+            <Text style={unreadCount < 1 && styles.unreadTick}>
+              {unreadCount < 1 && '√√'}
+            </Text>
             <Text style={styles.lastMessage} numberOfLines={1}>
               {item.message}
             </Text>
+            {unreadCount > 0 && (
+              <View style={styles.unreadBadge}>
+                <Text style={styles.unreadText}>{unreadCount}</Text>
+              </View>
+            )}
           </View>
         </View>
         <View style={styles.end}>
@@ -122,9 +147,27 @@ const styles = StyleSheet.create({
   },
   lastMessage: {
     color: Colors.GRAY_1,
+    flex: 1,
   },
   end: {
     paddingLeft: 5,
+  },
+  unreadBadge: {
+    backgroundColor: Colors.GREEN_2,
+    borderRadius: 100,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    marginLeft: 10,
+  },
+  unreadText: {
+    color: Colors.WHITE,
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  unreadTick: {
+    color: Colors.GRAY_1,
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 
