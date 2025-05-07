@@ -4,12 +4,12 @@ import {
   StyleSheet,
   ImageBackground,
   FlatList,
-  Text,
   TextInput,
   Pressable,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Text,
 } from 'react-native';
 import ContactHeader from '../../components/router/contactHeader';
 import Colors from '../../utils/colors';
@@ -22,35 +22,53 @@ import {
 } from 'iconsax-react-nativejs';
 import firestore from '@react-native-firebase/firestore';
 import MessageBox from '../../components/chats/messageBox';
-import Chats from './index';
 import {useAppSelector} from '../../store/hooks';
 
-const Messages: React.FC = ({route}) => {
-  const {contact, userId} = route.params;
+const ChatRoom: React.FC = ({route}) => {
+  const {contact} = route.params;
   const {phoneNumber} = useAppSelector(state => state.auth);
-  console.log(userId);
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState([]);
+  let contactNumber = contact?.phoneNumbers?.[0]?.number || contact.phoneNumber;
   const sendMessage = () => {
-    firestore().collection('Messages').doc(phoneNumber).set({
-      from: phoneNumber,
-      to: contact?.phoneNumbers[0].number,
-      message: message,
-      timeStamp: firestore.FieldValue.serverTimestamp(),
-      read: false,
-    });
+    if (!phoneNumber || !contactNumber || !message.trim()) {
+      console.warn('Eksik bilgi var. Mesaj gönderilemiyor.');
+      return;
+    }
+
+    const subscriber = firestore()
+      .collection('Messages')
+      .add({
+        from: phoneNumber,
+        to: contactNumber,
+        message: message,
+        timeStamp: firestore.Timestamp.now(),
+        read: false,
+      })
+      .then(res => setMessage(''))
+      .catch(err => console.error('Mesaj gönderme hatası:', err));
   };
-  //   useEffect(() => {
-  //     const unsubscribe = firestore()
-  //       .collection('Messages')
-  //       .where('from', '==', phoneNumber)
-  //       .orderBy('timeStamp', 'asc')
-  //       .onSnapshot(snapShot => {
-  //         const messages = snapShot?.docs.map(doc => doc.data());
-  //         setChats(messages);
-  //       });
-  //     return unsubscribe;
-  //   }, []);
+
+  useEffect(() => {
+    const subscribe = firestore()
+      .collection('Messages')
+      .orderBy('timeStamp', 'desc')
+      .onSnapshot(snapshot => {
+        if (!snapshot) return; // null koruması
+        const allMessages = snapshot.docs.map(doc => doc.data());
+
+        // Filtrele: Sadece bu kişiyle olan konuşmalar
+        const filtered = allMessages.filter(
+          msg =>
+            (msg.from === phoneNumber && msg.to === contactNumber) ||
+            (msg.from === contactNumber && msg.to === phoneNumber),
+        );
+
+        setChats(filtered);
+      });
+
+    return () => subscribe();
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -66,6 +84,25 @@ const Messages: React.FC = ({route}) => {
           <FlatList
             style={{flex: 1}}
             inverted
+            ListEmptyComponent={() => (
+              <View
+                style={{
+                  backgroundColor: Colors.YELLOW_1,
+                  padding: 30,
+                  margin: 30,
+                  borderRadius: 10,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flex: 1,
+                  marginTop: 400,
+                  transform: [{rotate: '180deg'}],
+                }}>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
+                  Messages you send to this chat and calls are not secured with
+                  end-to-end encription
+                </Text>
+              </View>
+            )}
             data={chats}
             renderItem={({item}) => <MessageBox item={item} />}
           />
@@ -141,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Messages;
+export default ChatRoom;

@@ -3,42 +3,48 @@ import {View, SafeAreaView, FlatList, Text} from 'react-native';
 import defaultScreenStyle from '../../styles/defaultScreenStyle';
 import ChatItem from '../../components/chats/chatItem';
 import {useAppSelector} from '../../store/hooks';
-import firestore, {Filter} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const Chats: React.FC = () => {
-  // const {messages} = useAppSelector(state => state.chat);
   const {phoneNumber} = useAppSelector(state => state.auth);
 
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState([]);
-
+  const user = auth().currentUser?.uid;
+  console.log('user', user);
   useEffect(() => {
-    // const subscribe = firestore()
-    //   .collection('Messages')
-    //   .where('from', '==', phoneNumber)
-    //   .orderBy('timeStamp', 'asc')
-    //   .onSnapshot(snapShot => {
-    //     const messages = snapShot?.docs.map(doc => doc.data());
-    //     setChats(messages);
-    //     console.log(chats);
-    //     console.log('Burada');
-    //   });
-    // return () => subscribe();
-    firestore()
+    const unsubscribe = firestore()
       .collection('Messages')
-      // .where(Filter('from', '==', `${phoneNumber}`))
-      .get()
-      .then(querySnapshot => {
-        const messages = [];
-        querySnapshot.forEach(documentSnapshot => {
-          messages.push({
-            id: documentSnapshot.id,
-            ...documentSnapshot.data(),
-          });
+      .orderBy('timeStamp', 'desc') // son mesaj üstte
+      .onSnapshot(querySnapshot => {
+        const allMessages = [];
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          // Sadece bu kullanıcıyla alakalı mesajları al
+          if (data.from === phoneNumber || data.to === phoneNumber) {
+            allMessages.push({id: doc.id, ...data});
+          }
         });
-        setChats(messages);
+
+        // Her kişiyle olan en son mesajı almak için grupla
+        const grouped = {};
+        allMessages.forEach(msg => {
+          const otherUser = msg.from === phoneNumber ? msg.to : msg.from;
+
+          // Eğer bu kullanıcı için daha önce eklenmemişse, ekle (zaten sıralı)
+          if (!grouped[otherUser]) {
+            grouped[otherUser] = msg;
+          }
+        });
+
+        const uniqueChats = Object.values(grouped);
+        setChats(uniqueChats);
       });
-  }, []);
+
+    return () => unsubscribe();
+  }, [phoneNumber]);
+
   return (
     <SafeAreaView style={defaultScreenStyle.safeArea}>
       <View style={defaultScreenStyle.container}>

@@ -8,12 +8,14 @@ import Colors from '../utils/colors';
 import CountryCode from '../screens/auth/countryCode';
 import UserRegistirationInfo from '../screens/auth/userRegistirationInfo';
 import {Contacts} from '../screens';
-import Messages from '../screens/chats/message';
+import Messages from '../screens/chats/chatRoom';
 
 const Stack = createNativeStackNavigator();
 const RootNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+    // initialRouteName={Routes.TAB}
+    >
       <Stack.Screen
         options={({navigation}) => ({
           headerRight: () => (
