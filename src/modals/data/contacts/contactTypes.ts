@@ -19,5 +19,6 @@ export interface Contact {
 }
 
 export interface ContactProps {
-  item: Contact;
+  item?: Contact;
+  contact?: Contact;
 }

@@ -36,7 +36,7 @@ const createUser = createAsyncThunk(
           phoneNumber: phoneNumber,
           name: name,
           surname: surname,
-          lastSeen: firestore.FieldValue.serverTimestamp(),
+          lastSeen: firestore.FieldValue.serverTimestamp,
         })
         .then(() => {
           navigation.navigate(Routes.TAB);

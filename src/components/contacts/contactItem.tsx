@@ -7,6 +7,7 @@ import Routes from '../../utils/routes';
 
 const ContactsItem: React.FC<ContactProps> = ({item}) => {
   const navigation = useNavigation();
+
   return (
     <Pressable
       onPress={() => navigation.navigate(Routes.MESSAGES, {contact: item})}
