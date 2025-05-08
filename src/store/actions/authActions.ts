@@ -39,6 +39,8 @@ const createUser = createAsyncThunk(
           lastSeen: firestore.FieldValue.serverTimestamp(),
           createTime: firestore.FieldValue.serverTimestamp(),
           isOnline: true,
+          status: 'Müsait',
+          profileImage: '',
         })
         .then(() => {
           navigation.navigate(Routes.TAB);

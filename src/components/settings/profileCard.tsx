@@ -3,10 +3,13 @@ import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 import {useAppSelector} from '../../store/hooks';
 import Colors from '../../utils/colors';
 import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import Routes from '../../utils/routes';
 
 const ProfileCard = () => {
   const {phoneNumber} = useAppSelector(state => state.auth);
   const [user, setUser] = useState();
+  const navigation = useNavigation();
   useEffect(() => {
     const subscriber = firestore()
       .collection('Users')
@@ -19,7 +22,9 @@ const ProfileCard = () => {
   }, []);
   console.log(user);
   return (
-    <Pressable style={styles.container}>
+    <Pressable
+      onPress={() => navigation.navigate(Routes.EDITPROFILE)}
+      style={styles.container}>
       <View style={styles.imageContaine}>
         {user ? (
           <View style={styles.left}>
