@@ -11,9 +11,9 @@ const icons = {
     focused: require('../../assets/icons/callsFill.png'),
     unfocused: require('../../assets/icons/callsIcon.png'),
   },
-  [Routes.CAMERA]: {
-    focused: require('../../assets/icons/cameraFill.png'),
-    unfocused: require('../../assets/icons/cameraIcon.png'),
+  [Routes.CONTACTS]: {
+    focused: require('../../assets/icons/contactFill.png'),
+    unfocused: require('../../assets/icons/contactIcon.png'),
   },
   [Routes.CHATS]: {
     focused: require('../../assets/icons/chatsFill.png'),

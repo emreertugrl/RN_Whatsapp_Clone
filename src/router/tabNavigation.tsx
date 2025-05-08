@@ -1,7 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Routes from '../utils/routes';
-import {Calls, Camera, Chats, Settings, Status} from '../screens';
+import {Calls, Camera, Chats, Contacts, Settings, Status} from '../screens';
 import Colors from '../utils/colors';
 import TabIcon from '../components/router/tabIcon';
 import {Edit} from 'iconsax-react-nativejs';
@@ -25,7 +25,7 @@ const TabNavigator = () => {
       })}>
       <Tab.Screen name={Routes.STATUS} component={Status} />
       <Tab.Screen name={Routes.CALLS} component={Calls} />
-      <Tab.Screen name={Routes.CAMERA} component={Camera} />
+      <Tab.Screen name={Routes.CONTACTS} component={Contacts} />
       <Tab.Screen
         options={({navigation}) => ({
           headerLeft: () => (
