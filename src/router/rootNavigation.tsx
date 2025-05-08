@@ -3,8 +3,7 @@ import React, {useEffect} from 'react';
 import TabNavigator from './tabNavigation';
 import Routes from '../utils/routes';
 import PhoneNumber from '../screens/profile/phoneNumber';
-import {AppState, Pressable, Text} from 'react-native';
-import Colors from '../utils/colors';
+import {AppState} from 'react-native';
 import CountryCode from '../screens/auth/countryCode';
 import UserRegistirationInfo from '../screens/auth/userRegistirationInfo';
 import {Contacts} from '../screens';
@@ -27,35 +26,18 @@ const RootNavigator = () => {
             lastSeen: firestore.FieldValue.serverTimestamp(),
           });
         } else {
-          firestore()
-            .collection('Users')
-            .doc(phone)
-            .update({
-              isOnline: false,
-              lastSeen: firestore.FieldValue.serverTimestamp(),
-            });
+          firestore().collection('Users').doc(phone).update({
+            isOnline: false,
+            lastSeen: firestore.FieldValue.serverTimestamp(),
+          });
         }
       },
     );
   }, []);
 
   return (
-    <Stack.Navigator
-    // initialRouteName={Routes.TAB}
-    >
-      <Stack.Screen
-        options={({navigation}) => ({
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate(Routes.TAB)}
-              style={{width: 80}}>
-              <Text style={{color: Colors.BLUE_1, fontSize: 18}}>Done</Text>
-            </Pressable>
-          ),
-        })}
-        name={Routes.PHONENUMBER}
-        component={PhoneNumber}
-      />
+    <Stack.Navigator>
+      <Stack.Screen name={Routes.PHONENUMBER} component={PhoneNumber} />
       <Stack.Screen name={Routes.COUNTRYCODE} component={CountryCode} />
       <Stack.Screen
         name={Routes.USERREGISTIRETIONINFO}

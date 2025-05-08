@@ -12,6 +12,9 @@ import {useNavigation} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {getCountriesCode} from '../../store/actions/authActions';
 import {setPhoneNumber} from '../../store/slice/authSlice';
+import FloatActionButton from '../../components/ui/floatActionButton';
+import Colors from '../../utils/colors';
+import {ArrowRight} from 'iconsax-react-nativejs';
 
 const PhoneNumber: React.FC = () => {
   const navigation = useNavigation();
@@ -37,6 +40,10 @@ const PhoneNumber: React.FC = () => {
   }
   return (
     <SafeAreaView style={defaultScreenStyle.safeArea}>
+      <FloatActionButton
+        icon={<ArrowRight size={30} color={Colors.WHITE} />}
+        onPress={() => handleSignInWithPhoneNumber()}
+      />
       <View style={defaultScreenStyle.container}>
         <Text style={{fontSize: 18, textAlign: 'center', padding: 20}}>
           Please confirm your country code and enter your phone number
@@ -45,7 +52,6 @@ const PhoneNumber: React.FC = () => {
           value={phoneNumber}
           onChange={value => dispatch(setPhoneNumber(value))}
         />
-        <Button title="Kaydet" onPress={() => handleSignInWithPhoneNumber()} />
       </View>
     </SafeAreaView>
   );

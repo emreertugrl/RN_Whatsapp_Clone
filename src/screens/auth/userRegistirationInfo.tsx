@@ -5,6 +5,8 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {setName, setPhoneNumber, setSurname} from '../../store/slice/authSlice';
 import {createUser} from '../../store/actions/authActions';
 import {useNavigation} from '@react-navigation/native';
+import FloatActionButton from '../../components/ui/floatActionButton';
+import {Add, Save2} from 'iconsax-react-nativejs';
 
 const UserRegistirationInfo: React.FC = () => {
   const {name, phoneNumber, surname} = useAppSelector(state => state.auth);
@@ -27,8 +29,9 @@ const UserRegistirationInfo: React.FC = () => {
         onChange={(value: string) => dispatch(setSurname(value))}
         placeholder="Surname"
       />
-      <Button
-        title="Kaydol"
+
+      <FloatActionButton
+        icon={<Add size={50} color="white" />}
         onPress={() =>
           dispatch(createUser({name, surname, phoneNumber, navigation}))
         }

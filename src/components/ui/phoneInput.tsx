@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 0.5,
     borderColor: Colors.GRAY_2,
+    padding: 4,
   },
   codeContainer: {
     paddingHorizontal: 20,
