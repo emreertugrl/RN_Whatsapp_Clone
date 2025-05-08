@@ -26,7 +26,16 @@ import {useAppSelector} from '../../store/hooks';
 
 const ChatRoom: React.FC = ({route}) => {
   const {contact} = route?.params;
+
   const {phoneNumber} = useAppSelector(state => state.auth);
+  if (!contact) {
+    return (
+      <View>
+        <Text>Hatalı sayfa yönlendirmesi: Kullanıcı bilgisi yok.</Text>
+      </View>
+    );
+  }
+
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState([]);
   let contactNumber = contact?.phoneNumbers?.[0]?.number || contact.phoneNumber;
@@ -93,7 +102,7 @@ const ChatRoom: React.FC = ({route}) => {
 
     return () => subscribe();
   }, [phoneNumber, contactNumber]);
-
+  console.log(contact);
   return (
     <KeyboardAvoidingView
       style={styles.container}
