@@ -43,7 +43,9 @@ const ChatItem: React.FC<ChatItemProps> = ({item}) => {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate(Routes.MESSAGES, {contact: user})}
+      onPress={() =>
+        user && navigation.navigate(Routes.MESSAGES, {contact: user})
+      }
       style={styles.container}>
       <View style={styles.left}>
         <Image
@@ -59,11 +61,11 @@ const ChatItem: React.FC<ChatItemProps> = ({item}) => {
         <View style={styles.middle}>
           <View style={styles.rigthTop}>
             <Text style={styles.rightName}>
-              {user.name} {user.surname}
+              {user?.name} {user?.surname}
             </Text>
             <Text style={styles.date}>
               {moment
-                .unix(item.timeStamp._seconds)
+                .unix(item?.timeStamp?._seconds)
                 .utcOffset(3)
                 .format('HH:mm')}
             </Text>
@@ -73,7 +75,7 @@ const ChatItem: React.FC<ChatItemProps> = ({item}) => {
               {unreadCount < 1 && '√√'}
             </Text>
             <Text style={styles.lastMessage} numberOfLines={1}>
-              {item.message}
+              {item?.message}
             </Text>
             {unreadCount > 0 && (
               <View style={styles.unreadBadge}>
