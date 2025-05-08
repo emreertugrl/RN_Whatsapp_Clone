@@ -25,7 +25,7 @@ import MessageBox from '../../components/chats/messageBox';
 import {useAppSelector} from '../../store/hooks';
 
 const ChatRoom: React.FC = ({route}) => {
-  const {contact} = route.params;
+  const {contact} = route?.params;
   const {phoneNumber} = useAppSelector(state => state.auth);
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState([]);

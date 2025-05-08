@@ -69,7 +69,7 @@ const ChatItem: React.FC<ChatItemProps> = ({item}) => {
             </Text>
           </View>
           <View style={styles.rightDown}>
-            <Text style={unreadCount < 1 && styles.unreadTick}>
+            <Text style={item?.read ? styles.tick : styles.unreadTick}>
               {unreadCount < 1 && '√√'}
             </Text>
             <Text style={styles.lastMessage} numberOfLines={1}>
