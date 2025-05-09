@@ -7,7 +7,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'ada@lovelace.com'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/women/10.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/women/10.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/women/10.jpg',
   },
   {
     recordID: '2',
@@ -17,7 +17,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'home', email: 'alan@turing.org'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/men/20.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/men/20.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/men/20.jpg',
   },
   {
     recordID: '3',
@@ -27,7 +27,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'grace@hopper.net'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/women/30.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/women/30.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/women/30.jpg',
   },
   {
     recordID: '4',
@@ -37,7 +37,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'tim@w3.org'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/men/40.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/men/40.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/men/40.jpg',
   },
   {
     recordID: '5',
@@ -47,7 +47,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'home', email: 'margaret@apollo.com'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/women/50.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/women/50.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/women/50.jpg',
   },
   {
     recordID: '6',
@@ -57,7 +57,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'dennis@unix.org'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/men/60.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/men/60.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/men/60.jpg',
   },
   {
     recordID: '7',
@@ -67,7 +67,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'linus@linux.org'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/men/70.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/men/70.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/men/70.jpg',
   },
   {
     recordID: '8',
@@ -77,7 +77,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'home', email: 'katherine@nasa.gov'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/women/80.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/women/80.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/women/80.jpg',
   },
   {
     recordID: '9',
@@ -87,7 +87,7 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'steve@apple.com'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/men/90.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/men/90.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/men/90.jpg',
   },
   {
     recordID: '10',
@@ -97,6 +97,6 @@ export const mockContacts = [
     emailAddresses: [{label: 'work', email: 'bill@microsoft.com'}],
     hasThumbnail: true,
     thumbnailPath: 'https://randomuser.me/api/portraits/med/men/75.jpg',
-    avatar: 'https://randomuser.me/api/portraits/med/men/75.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/med/men/75.jpg',
   },
 ];
