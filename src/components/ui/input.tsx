@@ -3,11 +3,17 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Colors from '../../utils/colors';
 import {InputProps} from '../../modals/ui/input';
 
-const CustomInput: React.FC<InputProps> = ({onChange, value, placeholder}) => {
+const CustomInput: React.FC<InputProps> = ({
+  onChange,
+  value,
+  placeholder,
+  editable,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.placeHolder}>{placeholder}</Text>
       <TextInput
+        editable={editable}
         value={value}
         style={styles.input}
         placeholder={placeholder}
