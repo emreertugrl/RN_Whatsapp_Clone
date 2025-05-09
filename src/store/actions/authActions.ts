@@ -21,11 +21,13 @@ const createUser = createAsyncThunk(
     name,
     surname,
     phoneNumber,
+    status,
     navigation,
   }: {
     name: string;
     surname: string;
     phoneNumber: string;
+    status: string;
   }) => {
     console.log(name, surname, phoneNumber);
     try {
@@ -39,7 +41,7 @@ const createUser = createAsyncThunk(
           lastSeen: firestore.FieldValue.serverTimestamp(),
           createTime: firestore.FieldValue.serverTimestamp(),
           isOnline: true,
-          status: 'Müsait',
+          status: status,
           profileImage: '',
         })
         .then(() => {

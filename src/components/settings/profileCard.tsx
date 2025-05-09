@@ -1,29 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
-import {useAppSelector} from '../../store/hooks';
 import Colors from '../../utils/colors';
-import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import Routes from '../../utils/routes';
 
-const ProfileCard = () => {
-  const {phoneNumber} = useAppSelector(state => state.auth);
-  const [user, setUser] = useState();
+const ProfileCard = ({user}) => {
   const navigation = useNavigation();
-  useEffect(() => {
-    const subscriber = firestore()
-      .collection('Users')
-      .doc(phoneNumber)
-      .onSnapshot(documentSnapshot => {
-        setUser(documentSnapshot?.data());
-      });
 
-    return () => subscriber();
-  }, []);
-  console.log(user);
   return (
     <Pressable
-      onPress={() => navigation.navigate(Routes.EDITPROFILE)}
+      onPress={() => navigation.navigate(Routes.EDITPROFILE, {user: user})}
       style={styles.container}>
       <View style={styles.imageContaine}>
         {user ? (
@@ -102,7 +88,7 @@ const styles = StyleSheet.create({
     width: 65,
     height: 65,
     borderRadius: 70,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
 });
 

@@ -7,6 +7,7 @@ interface CountryiesTypes {
   name: string;
   surname: string;
   phoneNumber: string;
+  status?: string;
   selectedCountry: Country;
   pendingCountryCode: boolean;
   countries: Country[];

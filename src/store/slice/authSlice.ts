@@ -6,6 +6,7 @@ const initialState: CountryiesTypes = {
   phoneNumber: '5555555555',
   surname: 'ertugrul',
   name: 'emre',
+  status: 'Müsait',
   countries: [],
   pendingCountryCode: false,
   selectedCountry: {
@@ -30,6 +31,9 @@ const authSlice = createSlice({
     setSurname: (state, action) => {
       state.surname = action.payload;
     },
+    setStatus: (state, action) => {
+      state.status = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -46,6 +50,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {setCountry, setPhoneNumber, setName, setSurname} =
+export const {setCountry, setPhoneNumber, setName, setSurname, setStatus} =
   authSlice.actions;
 export default authSlice.reducer;

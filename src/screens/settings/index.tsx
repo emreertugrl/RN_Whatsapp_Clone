@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -23,9 +23,14 @@ import {
 } from 'iconsax-react-nativejs';
 import {useNavigation} from '@react-navigation/native';
 import Routes from '../../utils/routes';
+import firestore from '@react-native-firebase/firestore';
+import {useAppSelector} from '../../store/hooks';
 
 const Settings: React.FC = () => {
   const navigation = useNavigation();
+  const [user, setUser] = useState();
+  const {phoneNumber} = useAppSelector(state => state.auth);
+
   const web = [
     {
       title: 'Starred Messages',
@@ -72,11 +77,21 @@ const Settings: React.FC = () => {
       backgroundColor: Colors.RED_1,
     },
   ];
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Users')
+      .doc(phoneNumber)
+      .onSnapshot(documentSnapshot => {
+        setUser(documentSnapshot?.data());
+      });
+
+    return () => subscriber();
+  }, []);
   return (
     <SafeAreaView style={defaultScreenStyle.safeArea}>
       <View style={defaultScreenStyle.container}>
         <ScrollView>
-          <ProfileCard />
+          <ProfileCard user={user} />
           <View style={styles.iconContainer}>
             {web.map((item, index) => (
               <Pressable key={index} style={styles.iconBox}>
@@ -97,7 +112,7 @@ const Settings: React.FC = () => {
               <Pressable
                 onPress={() =>
                   item.title === 'Account'
-                    ? navigation.navigate(Routes.EDITPROFILE)
+                    ? navigation.navigate(Routes.EDITPROFILE, {user: user})
                     : ''
                 }
                 key={index}
