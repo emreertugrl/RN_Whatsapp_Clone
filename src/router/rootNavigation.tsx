@@ -11,6 +11,7 @@ import Messages from '../screens/chats/chatRoom';
 import {APPSTATE} from '../utils/constants';
 import firestore from '@react-native-firebase/firestore';
 import {useAppSelector} from '../store/hooks';
+import EditProfile from '../screens/profile/editProfile';
 
 const Stack = createNativeStackNavigator();
 const RootNavigator = () => {
@@ -58,6 +59,7 @@ const RootNavigator = () => {
         name={Routes.MESSAGES}
         component={Messages}
       />
+      <Stack.Screen name={Routes.EDITPROFILE} component={EditProfile} />
     </Stack.Navigator>
   );
 };
