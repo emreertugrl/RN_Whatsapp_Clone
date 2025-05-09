@@ -2,6 +2,7 @@ const Routes = {
   TAB: 'Tab',
   STATUS: 'Status',
   CALLS: 'Calls',
+  USERCALL: 'End-to-End Encripted',
   CAMERA: 'Camera',
   CHATS: 'Chats',
   SETTINGS: 'Settings',

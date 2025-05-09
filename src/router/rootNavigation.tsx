@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import TabNavigator from './tabNavigation';
 import Routes from '../utils/routes';
 import PhoneNumber from '../screens/profile/phoneNumber';
-import {AppState} from 'react-native';
+import {AppState, Pressable, View} from 'react-native';
 import CountryCode from '../screens/auth/countryCode';
 import UserRegistirationInfo from '../screens/auth/userRegistirationInfo';
 import {Contacts} from '../screens';
@@ -12,6 +12,9 @@ import {APPSTATE} from '../utils/constants';
 import firestore from '@react-native-firebase/firestore';
 import {useAppSelector} from '../store/hooks';
 import EditProfile from '../screens/profile/editProfile';
+import UserCall from '../screens/calls/userCall';
+import Colors from '../utils/colors';
+import {UserAdd} from 'iconsax-react-nativejs';
 
 const Stack = createNativeStackNavigator();
 const RootNavigator = () => {
@@ -60,6 +63,20 @@ const RootNavigator = () => {
         component={Messages}
       />
       <Stack.Screen name={Routes.EDITPROFILE} component={EditProfile} />
+      <Stack.Screen
+        options={{
+          headerTintColor: Colors.WHITE,
+          headerStyle: {backgroundColor: Colors.BLACK},
+          headerTitleAlign: 'center',
+          headerRight: () => (
+            <Pressable>
+              <UserAdd color="white" size={25} />
+            </Pressable>
+          ),
+        }}
+        name={Routes.USERCALL}
+        component={UserCall}
+      />
     </Stack.Navigator>
   );
 };
