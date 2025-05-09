@@ -3,9 +3,9 @@ import {CountryiesTypes} from '../../modals/data/auth/auth';
 import {getCountriesCode} from '../actions/authActions';
 
 const initialState: CountryiesTypes = {
-  phoneNumber: '5555555555',
-  surname: 'ertugrul',
-  name: 'emre',
+  phoneNumber: '',
+  surname: '',
+  name: '',
   status: 'Müsait',
   countries: [],
   pendingCountryCode: false,
